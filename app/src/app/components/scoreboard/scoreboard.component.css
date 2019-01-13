@@ -1,0 +1,23 @@
+.score-card {
+    max-width: 800px;
+    margin: 10px auto;
+}
+
+.index {
+    margin-right: 5%;
+}
+
+.scoreboard-entry {
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 720px) {
+    .score-card {
+        max-width: 800px;
+        margin: 10px 20px;
+    }
+
+    .index {
+        margin-right: 2%;
+    }
+}

@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+    <div class="icon" [routerLink]="['']">
+        <img src="/assets/logo.png" alt="atanet" height="42" width="42">
+    </div>
+    <span>a * tan(et)</span>
+    <span class="fill-remaining-space"></span>
+    <div *ngIf="googleUser">
+        <button mat-icon-button *ngIf="googleUser" (click)="refresh()">
+            <mat-icon>refresh</mat-icon>
+        </button>
+        <button class="add-post" mat-icon-button *ngIf="googleUser" (click)="createPost()">
+            <mat-icon>add</mat-icon>
+        </button>
+        <button *ngIf="!scoreFailed" class="score-text-button" mat-icon-button [disabled]="true">
+            <span *ngIf="score" class="score-text">{{score | number:'1.2-2'}}</span>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="googleUser">
+            <img class="user-picture" width="100%" [src]="pictureUrl | secure | async" />
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="goToUserProfile()">
+                <mat-icon>fingerprint</mat-icon>
+                <span>{{googleUser && googleUser.getBasicProfile().getEmail()}}</span>
+            </button>
+        </mat-menu>
+    </div>
+</mat-toolbar>
+<main>
+    <router-outlet></router-outlet>
+</main>

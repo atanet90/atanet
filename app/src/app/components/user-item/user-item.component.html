@@ -1,0 +1,14 @@
+<div class="user-container">
+  <div class="user-profile-img">
+    <img [id]="id" [src]="userPictureUrl | secure | async" />
+  </div>
+  <div>
+    <p class="right-text" [routerLink]="['/user/' + userId]">
+      {{userEmail}}
+      <br *ngIf="userScore || joined" />
+      <small class="custom-text" *ngIf="userScore || joined">
+        {{userScore | number:'1.2-2'}} - joined {{joined | date}}
+      </small>
+    </p>
+  </div>
+</div>
