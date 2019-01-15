@@ -13,12 +13,6 @@
 
         IEnumerable<Type> GetBusinessRulesFor(Type type);
 
-        void TriggerPreSaveBusinessRulesFor<TEntity>(IUnitOfWork unitOfWork, IList<TEntity> added, IList<TEntity> changed, IList<TEntity> removed);
-
-        void TriggerPostSaveBusinessRulesFor<TEntity>(IUnitOfWork unitOfWork);
-
-        TBusinessRule InstantiateBusinessRule<TBusinessRule>(IUnitOfWork unitOfWork) where TBusinessRule : IBusinessRuleBase;
-
         IBusinessRuleBase InstantiateBusinessRule(Type type, IUnitOfWork unitOfWork);
 
         void RegisterEntries();

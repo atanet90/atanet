@@ -12,8 +12,6 @@
     {
         IApiResult OkResult(object obj);
 
-        IApiResult OkResult();
-
         IApiResult CreatedResult(AtanetEntityName entity, long id);
 
         IApiResult BadRequestResult(IDictionary<ErrorCode, ErrorDefinition> errors);

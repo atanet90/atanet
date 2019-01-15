@@ -70,37 +70,11 @@
             return list.Distinct().OrderBy(x => x.GetTypeInfo().IsInterface);
         }
 
-        public TBusinessRule InstantiateBusinessRule<TBusinessRule>(IUnitOfWork unitOfWork) where TBusinessRule : IBusinessRuleBase =>
-            (TBusinessRule)this.InstantiateBusinessRule(typeof(TBusinessRule), unitOfWork);
-
         public IBusinessRuleBase InstantiateBusinessRule(Type type, IUnitOfWork unitOfWork)
         {
             ThrowIfInvalidBusinessRule(type);
             var instantiated = this.serviceProvider.GetService(type);
             return (IBusinessRuleBase)instantiated;
-        }
-
-        public void TriggerPreSaveBusinessRulesFor<TEntity>(IUnitOfWork unitOfWork, IList<TEntity> added, IList<TEntity> changed, IList<TEntity> removed)
-        {
-            var rules = this.GetBusinessRulesFor<TEntity>();
-            foreach (var rule in rules)
-            {
-                var createdRule = this.InstantiateBusinessRule(rule, unitOfWork);
-                createdRule.PreSave(
-                    added.Cast<object>().ToList(),
-                    changed.Cast<object>().ToList(),
-                    removed.Cast<object>().ToList());
-            }
-        }
-
-        public void TriggerPostSaveBusinessRulesFor<TEntity>(IUnitOfWork unitOfWork)
-        {
-            var rules = this.GetBusinessRulesFor<TEntity>();
-            foreach (var rule in rules)
-            {
-                var createdRule = this.InstantiateBusinessRule(rule, unitOfWork);
-                createdRule.PostSave(unitOfWork);
-            }
         }
 
         private static void ThrowIfInvalidBusinessRule(Type t)

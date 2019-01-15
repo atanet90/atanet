@@ -77,9 +77,6 @@
         public IApiResult UnauthorizedResult() =>
             new UnauthorizedApiResult();
 
-        public IApiResult OkResult() =>
-            new OkApiResult(null);
-
         public IActionResult Ok(string message)
         {
             var result = new OkApiResult(new object());
