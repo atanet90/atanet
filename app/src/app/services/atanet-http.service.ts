@@ -136,7 +136,7 @@ export class AtanetHttpService {
           continue;
         }
 
-        const date = moment(source[key]);
+        const date = moment.utc(source[key]);
         if (date.isValid() && typeof source[key] === 'string' && source[key].indexOf(' ') < 0 && key !== 'text') {
           result[key] = date.toDate();
         } else {

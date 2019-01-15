@@ -8,14 +8,11 @@ export class AppConfig {
 export class ConfigService {
   private settings: AppConfig | undefined = undefined;
 
-  constructor(private authService: AuthService) {
-  }
-
   public get config(): AppConfig {
     return this.settings;
   }
 
-  public loadConfig(): Promise<any> {
+  public loadConfig(authService: AuthService): Promise<any> {
     return new Promise(async (resolve, _) => {
       const response = await fetch('./assets/configs/.config.json');
       const remoteConfig: AppConfig = await response.json();
@@ -26,7 +23,7 @@ export class ConfigService {
           scope: 'email',
           ux_mode: 'redirect'
         });
-        this.authService.setAuth2(auth2);
+        authService.setAuth2(auth2);
         resolve(remoteConfig);
       });
     });

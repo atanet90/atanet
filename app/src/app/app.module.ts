@@ -36,11 +36,12 @@ import { ConfigService } from './config';
 import { routing } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TokenInterceptor } from './token.interceptor';
+import { AuthService } from './services';
 
 
-export function init(_boot: ConfigService) {
+export function init(_boot: ConfigService, authService: AuthService) {
   return () => {
-    return _boot.loadConfig();
+    return _boot.loadConfig(authService);
   };
 }
 
@@ -94,10 +95,11 @@ export function init(_boot: ConfigService) {
   ],
   providers: [
     ConfigService,
+    AuthService,
     {
       provide: APP_INITIALIZER,
       useFactory: init,
-      deps: [ConfigService],
+      deps: [ConfigService, AuthService],
       multi: true
     },
     serv.CreatePostService,
